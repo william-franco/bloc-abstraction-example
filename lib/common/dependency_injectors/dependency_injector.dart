@@ -1,4 +1,6 @@
 import 'package:bloc_abstraction_example/common/services/http_service.dart';
+import 'package:bloc_abstraction_example/features/users/controllers/user_controller.dart';
+import 'package:bloc_abstraction_example/features/users/repositories/user_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
