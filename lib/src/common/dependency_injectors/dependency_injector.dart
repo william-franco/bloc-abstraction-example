@@ -1,5 +1,7 @@
 import 'package:bloc_abstraction_example/src/common/services/http_service.dart';
 import 'package:bloc_abstraction_example/src/common/services/storage_service.dart';
+import 'package:bloc_abstraction_example/src/features/users/controllers/user_controller.dart';
+import 'package:bloc_abstraction_example/src/features/users/repositories/user_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -29,16 +31,16 @@ void _startFeatureSetting() {
   locator.registerCachedFactory<StorageService>(
     () => StorageServiceImpl(),
   );
-  locator.registerCachedFactory<SettingRepository>(
-    () => SettingRepositoryImpl(
-      storageService: locator<StorageService>(),
-    ),
-  );
-  locator.registerCachedFactory<SettingController>(
-    () => SettingControllerImpl(
-      settingRepository: locator<SettingRepository>(),
-    ),
-  );
+  // locator.registerCachedFactory<SettingRepository>(
+  //   () => SettingRepositoryImpl(
+  //     storageService: locator<StorageService>(),
+  //   ),
+  // );
+  // locator.registerCachedFactory<SettingController>(
+  //   () => SettingControllerImpl(
+  //     settingRepository: locator<SettingRepository>(),
+  //   ),
+  // );
 }
 
 void resetDependencies() {
