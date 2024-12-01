@@ -1,10 +1,11 @@
 import 'package:bloc_abstraction_example/src/common/dependency_injectors/dependency_injector.dart';
-import 'package:bloc_abstraction_example/src/common/routes/routes.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/refresh_button_widget.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/refresh_indicator_widget.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/skeleton_refresh_widget.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/state_builder_widget.dart';
+import 'package:bloc_abstraction_example/src/features/settings/routes/setting_routes.dart';
 import 'package:bloc_abstraction_example/src/features/users/controllers/user_controller.dart';
+import 'package:bloc_abstraction_example/src/features/users/routes/user_routes.dart';
 import 'package:bloc_abstraction_example/src/features/users/states/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -41,7 +42,7 @@ class _UserViewState extends State<UserView> {
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             onPressed: () {
-              context.push(Routes.setting);
+              context.push(SettingRoutes.setting);
             },
           ),
         ],
@@ -84,7 +85,7 @@ class _UserViewState extends State<UserView> {
                         ),
                         onTap: () {
                           context.push(
-                            Routes.userDetail,
+                            UserRoutes.userDetail,
                             extra: user,
                           );
                         },
