@@ -63,9 +63,9 @@ flutter run -d chrome --web-renderer html
 ```
 git add . && git commit -m ":rocket: Initial commit." && git push
 git add . && git commit -m ":building_construction: Added initial project architecture." && git push
-git add . && git commit -m ":memo: Updated project documentation" && git push
-git add . && git commit -m ":memo: Updated code documentation" && git push
-git add . && git commit -m ":white_check_mark: Added xyz functionality." && git push
+git add . && git commit -m ":memo: Updated project documentation." && git push
+git add . && git commit -m ":memo: Updated code documentation." && git push
+git add . && git commit -m ":white_check_mark: Added feature xyz." && git push
 git add . && git commit -m ":wrench: Fixed xyz usage." && git push
 git add . && git commit -m ":heavy_minus_sign: Removed xyz." && git push
 git add . && git commit -m ":memo: Adjusted project imports." && git push
