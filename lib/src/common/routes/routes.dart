@@ -3,12 +3,11 @@ import 'package:bloc_abstraction_example/src/features/users/routes/user_routes.d
 import 'package:go_router/go_router.dart';
 
 class Routes {
-  static final GoRouter routes = GoRouter(
+  static String get home => UserRoutes.users;
+
+  GoRouter routes = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: UserRoutes.users,
-    routes: [
-      ...UserRoutes.routes,
-      ...SettingRoutes.routes,
-    ],
+    initialLocation: home,
+    routes: [...UserRoutes().routes, ...SettingRoutes().routes],
   );
 }

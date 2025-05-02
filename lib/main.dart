@@ -4,9 +4,11 @@ import 'package:bloc_abstraction_example/src/common/widgets/state_builder_widget
 import 'package:bloc_abstraction_example/src/features/settings/controllers/setting_controller.dart';
 import 'package:bloc_abstraction_example/src/features/settings/models/setting_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
   dependencyInjector();
   await initDependencies();
   runApp(const MyApp());
@@ -24,15 +26,11 @@ class MyApp extends StatelessWidget {
         return MaterialApp.router(
           title: 'Bloc Abstraction Example',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.light(
-            useMaterial3: true,
-          ),
-          darkTheme: ThemeData.dark(
-            useMaterial3: true,
-          ),
+          theme: ThemeData.light(useMaterial3: true),
+          darkTheme: ThemeData.dark(useMaterial3: true),
           themeMode:
               settingModel.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-          routerConfig: Routes.routes,
+          routerConfig: Routes().routes,
         );
       },
     );
