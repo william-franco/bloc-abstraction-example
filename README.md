@@ -3,12 +3,7 @@
 Under construction.
 
 
-## Project structure
-
-The project is structured in a modular way, where each new functionality must be a new module containing its particularities and things common to the entire project must be in the `common` module.
-
-
-### Directory tree
+## Directory tree
 
 ```
 lib/
@@ -40,11 +35,13 @@ lib/
 ```
 
 
-## Command to run the project in Chrome
+## Coverage
 
-```
-flutter run -d chrome --web-renderer html
-```
+flutter test --coverage
+
+genhtml coverage/lcov.info -o coverage/html
+
+open coverage/html/index.html
 
 
 ## ScreenShots
@@ -63,6 +60,7 @@ flutter run -d chrome --web-renderer html
 ```
 git add . && git commit -m ":rocket: Initial commit." && git push
 git add . && git commit -m ":building_construction: Added initial project architecture." && git push
+git add . && git commit -m ":building_construction: Update project architecture." && git push
 git add . && git commit -m ":memo: Updated project documentation." && git push
 git add . && git commit -m ":memo: Updated code documentation." && git push
 git add . && git commit -m ":white_check_mark: Added feature xyz." && git push
@@ -98,3 +96,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
