@@ -17,6 +17,7 @@ lib/
         │   ├── extensions/
         │   ├── routes/
         │   ├── services/
+        │   ├── states/
         │   └── widgets/
         └── features/
             ├── settings/
@@ -30,7 +31,6 @@ lib/
                 ├── models/
                 ├── repositories/
                 ├── routes/
-                ├── states/
                 └── views/
 ```
 
