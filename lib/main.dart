@@ -11,26 +11,40 @@ Future<void> main() async {
   usePathUrlStrategy();
   dependencyInjector();
   await initDependencies();
-  runApp(const MyApp());
+  final Routes appRoutes = Routes();
+  runApp(
+    MyApp(
+      appRoutes: appRoutes,
+      settingController: locator<SettingController>(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Routes appRoutes;
+  final SettingController settingController;
+
+  const MyApp({
+    super.key,
+    required this.appRoutes,
+    required this.settingController,
+  });
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return StateBuilderWidget<SettingController, SettingModel>(
-      controller: locator<SettingController>(),
+      controller: settingController,
       builder: (context, settingModel, widget) {
         return MaterialApp.router(
           title: 'Bloc Abstraction Example',
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light(useMaterial3: true),
           darkTheme: ThemeData.dark(useMaterial3: true),
-          themeMode:
-              settingModel.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-          routerConfig: Routes().routes,
+          themeMode: settingModel.isDarkTheme
+              ? ThemeMode.dark
+              : ThemeMode.light,
+          routerConfig: appRoutes.routes,
         );
       },
     );

@@ -1,4 +1,3 @@
-import 'package:bloc_abstraction_example/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:bloc_abstraction_example/src/common/states/state.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/refresh_button_widget.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/refresh_indicator_widget.dart';
@@ -12,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class UserView extends StatefulWidget {
-  const UserView({super.key});
+  final UserController userController;
+
+  const UserView({super.key, required this.userController});
 
   @override
   State<UserView> createState() => _UserViewState();
@@ -24,7 +25,7 @@ class _UserViewState extends State<UserView> {
   @override
   void initState() {
     super.initState();
-    userController = locator<UserController>();
+    userController = widget.userController;
     userController.getAllUsers();
   }
 

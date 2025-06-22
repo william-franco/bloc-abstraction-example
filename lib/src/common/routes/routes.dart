@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 class Routes {
   static String get home => UserRoutes.users;
 
-  GoRouter routes = GoRouter(
+  GoRouter get routes => _routes;
+
+  final GoRouter _routes = GoRouter(
     debugLogDiagnostics: true,
     initialLocation: home,
     routes: [...UserRoutes().routes, ...SettingRoutes().routes],
