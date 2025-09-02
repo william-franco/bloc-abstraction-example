@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "br.com.williamfranco.bloc_abstraction_example"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.2.12479018"
+    ndkVersion = "27.3.13750724"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
