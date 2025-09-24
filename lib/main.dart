@@ -1,7 +1,7 @@
 import 'package:bloc_abstraction_example/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:bloc_abstraction_example/src/common/routes/routes.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/state_builder_widget.dart';
-import 'package:bloc_abstraction_example/src/features/settings/controllers/setting_controller.dart';
+import 'package:bloc_abstraction_example/src/features/settings/view_models/setting_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/settings/models/setting_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -13,28 +13,25 @@ Future<void> main() async {
   await initDependencies();
   final Routes appRoutes = Routes();
   runApp(
-    MyApp(
-      appRoutes: appRoutes,
-      settingController: locator<SettingController>(),
-    ),
+    MyApp(appRoutes: appRoutes, settingViewModel: locator<SettingViewModel>()),
   );
 }
 
 class MyApp extends StatelessWidget {
   final Routes appRoutes;
-  final SettingController settingController;
+  final SettingViewModel settingViewModel;
 
   const MyApp({
     super.key,
     required this.appRoutes,
-    required this.settingController,
+    required this.settingViewModel,
   });
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return StateBuilderWidget<SettingController, SettingModel>(
-      controller: settingController,
+    return StateBuilderWidget<SettingViewModel, SettingModel>(
+      controller: settingViewModel,
       builder: (context, settingModel, widget) {
         return MaterialApp.router(
           title: 'Bloc Abstraction Example',

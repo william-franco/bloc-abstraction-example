@@ -1,7 +1,8 @@
 class SettingModel {
-  bool isDarkTheme;
+  final bool isDarkTheme;
 
-  SettingModel({
-    this.isDarkTheme = false,
-  });
+  SettingModel({this.isDarkTheme = false});
+
+  SettingModel copyWith({bool? isDarkTheme}) =>
+      SettingModel(isDarkTheme: isDarkTheme ?? this.isDarkTheme);
 }

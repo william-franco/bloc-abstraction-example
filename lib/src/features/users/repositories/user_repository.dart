@@ -1,55 +1,48 @@
-import 'package:bloc_abstraction_example/src/common/environments/environments.dart';
-import 'package:bloc_abstraction_example/src/common/exception_handlings/exception_handling.dart';
+import 'package:bloc_abstraction_example/src/common/constants/api_constant.dart';
+import 'package:bloc_abstraction_example/src/common/results/result.dart';
+import 'package:bloc_abstraction_example/src/common/services/connection_service.dart';
 import 'package:bloc_abstraction_example/src/common/services/http_service.dart';
 import 'package:bloc_abstraction_example/src/features/users/models/user_model.dart';
 
+typedef UserResult = Result<List<UserModel>, Exception>;
+
 abstract interface class UserRepository {
-  Future<Result<UserModel, Exception>> findUserById(String id);
-  Future<Result<List<UserModel>, Exception>> findAllUsers();
+  Future<UserResult> findAllUsers();
 }
 
 class UserRepositoryImpl implements UserRepository {
+  final ConnectionService connectionService;
   final HttpService httpService;
 
   UserRepositoryImpl({
+    required this.connectionService,
     required this.httpService,
   });
 
   @override
-  Future<Result<UserModel, Exception>> findUserById(String id) async {
+  Future<UserResult> findAllUsers() async {
     try {
-      final response = await httpService.getData(
-        path: '${Environments.users}$id',
-      );
-      switch (response.statusCode) {
-        case 200:
-          final success = UserModel.fromJson(response.data);
-          return Success(value: success);
-        default:
-          return Error(error: Exception(response.statusMessage));
-      }
-    } on Exception catch (error) {
-      return Error(error: error);
-    }
-  }
+      await connectionService.checkConnection();
 
-  @override
-  Future<Result<List<UserModel>, Exception>> findAllUsers() async {
-    try {
-      final response = await httpService.getData(
-        path: Environments.users,
-      );
-      switch (response.statusCode) {
-        case 200:
-          final success = (response.data as List)
-              .map((e) => UserModel.fromJson(e))
-              .toList();
-          return Success(value: success);
-        default:
-          return Error(error: Exception(response.statusMessage));
+      if (!connectionService.isConnected) {
+        return ErrorResult(error: Exception('Device not connected.'));
       }
-    } on Exception catch (error) {
-      return Error(error: error);
+
+      final result = await httpService.getData(path: ApiConstant.users);
+
+      if (result.statusCode == 200 && result.data != null) {
+        final users = (result.data as List)
+            .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
+            .toList();
+
+        return SuccessResult(value: users);
+      }
+
+      return ErrorResult(
+        error: Exception('Failed to fetch users: ${result.statusCode}'),
+      );
+    } catch (error) {
+      return ErrorResult(error: Exception('Unexpected error: $error'));
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:bloc_abstraction_example/src/common/dependency_injectors/dependency_injector.dart';
-import 'package:bloc_abstraction_example/src/features/users/controllers/user_controller.dart';
+import 'package:bloc_abstraction_example/src/features/users/view_models/user_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/models/user_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/views/user_detail_view.dart';
 import 'package:bloc_abstraction_example/src/features/users/views/user_view.dart';
@@ -15,7 +15,7 @@ class UserRoutes {
     GoRoute(
       path: users,
       builder: (context, state) {
-        return UserView(userController: locator<UserController>());
+        return UserView(userViewModel: locator<UserViewModel>());
       },
     ),
     GoRoute(

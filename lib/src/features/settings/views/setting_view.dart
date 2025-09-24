@@ -1,13 +1,13 @@
 import 'package:bloc_abstraction_example/src/common/widgets/state_builder_widget.dart';
-import 'package:bloc_abstraction_example/src/features/settings/controllers/setting_controller.dart';
+import 'package:bloc_abstraction_example/src/features/settings/view_models/setting_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/settings/models/setting_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingView extends StatelessWidget {
-  final SettingController settingController;
+  final SettingViewModel settingViewModel;
 
-  const SettingView({super.key, required this.settingController});
+  const SettingView({super.key, required this.settingViewModel});
 
   void _showAboutDialog(BuildContext context) {
     showAboutDialog(
@@ -38,13 +38,13 @@ class SettingView extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text('Dark theme'),
-              trailing: StateBuilderWidget<SettingController, SettingModel>(
-                controller: settingController,
+              trailing: StateBuilderWidget<SettingViewModel, SettingModel>(
+                controller: settingViewModel,
                 builder: (context, settingModel, widget) {
                   return Switch(
                     value: settingModel.isDarkTheme,
                     onChanged: (bool isDarkTheme) {
-                      settingController.changeTheme(isDarkTheme: isDarkTheme);
+                      settingViewModel.changeTheme(isDarkTheme: isDarkTheme);
                     },
                   );
                 },

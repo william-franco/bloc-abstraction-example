@@ -4,29 +4,26 @@ import 'package:bloc_abstraction_example/src/common/widgets/refresh_indicator_wi
 import 'package:bloc_abstraction_example/src/common/widgets/skeleton_refresh_widget.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/state_builder_widget.dart';
 import 'package:bloc_abstraction_example/src/features/settings/routes/setting_routes.dart';
-import 'package:bloc_abstraction_example/src/features/users/controllers/user_controller.dart';
+import 'package:bloc_abstraction_example/src/features/users/view_models/user_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/models/user_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class UserView extends StatefulWidget {
-  final UserController userController;
+  final UserViewModel userViewModel;
 
-  const UserView({super.key, required this.userController});
+  const UserView({super.key, required this.userViewModel});
 
   @override
   State<UserView> createState() => _UserViewState();
 }
 
 class _UserViewState extends State<UserView> {
-  late final UserController userController;
-
   @override
   void initState() {
     super.initState();
-    userController = widget.userController;
-    userController.getAllUsers();
+    widget.userViewModel.getAllUsers();
   }
 
   @override
@@ -38,7 +35,7 @@ class _UserViewState extends State<UserView> {
         actions: [
           RefreshButtonWidget(
             onPressed: () async {
-              await userController.getAllUsers();
+              await widget.userViewModel.getAllUsers();
             },
           ),
           IconButton(
@@ -52,10 +49,10 @@ class _UserViewState extends State<UserView> {
       body: Center(
         child: RefreshIndicatorWidget(
           onRefresh: () async {
-            await userController.getAllUsers();
+            await widget.userViewModel.getAllUsers();
           },
-          child: StateBuilderWidget<UserController, AppState<List<UserModel>>>(
-            controller: userController,
+          child: StateBuilderWidget<UserViewModel, AppState<List<UserModel>>>(
+            controller: widget.userViewModel,
             builder: (context, userState, widget) {
               return switch (userState) {
                 InitialState() => const Text('List is empty.'),

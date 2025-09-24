@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+typedef HttpResult = ({int? statusCode, Object? data, String? error});
+
 abstract interface class HttpService {
-  Future<Response> getData({required String path});
+  Future<HttpResult> getData({required String path});
 }
 
 class HttpServiceImpl implements HttpService {
@@ -18,26 +20,26 @@ class HttpServiceImpl implements HttpService {
     _httpClient.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          debugPrint('Sending request to: ${options.uri}');
+          debugPrint('➡️ Request to: ${options.uri}');
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          debugPrint('Received response: ${response.statusCode}');
+          debugPrint('✅ Response: ${response.statusCode}');
           return handler.next(response);
         },
         onError: (DioException e, handler) async {
+          debugPrint('❌ Dio error: ${e.message}');
           int retryCount = 0;
           int maxRetries = 3;
+
           while (retryCount < maxRetries &&
               e.type == DioExceptionType.connectionTimeout) {
             retryCount++;
+            debugPrint('⏳ Retrying ($retryCount/$maxRetries)...');
             try {
-              debugPrint('Connection timeout, retrying...');
               final res = await _httpClient.request(e.requestOptions.path);
               return handler.resolve(res);
-            } catch (e) {
-              debugPrint('$e');
-            }
+            } catch (_) {}
           }
           return handler.next(e);
         },
@@ -45,14 +47,30 @@ class HttpServiceImpl implements HttpService {
     );
   }
 
+  HttpResult _handleResponse(Response response) =>
+      (statusCode: response.statusCode, data: response.data, error: null);
+
+  HttpResult _handleError(DioException error) => (
+    statusCode: error.response?.statusCode,
+    data: null,
+    error: error.message,
+  );
+
+  HttpResult _handleGenericError(Object error) =>
+      (statusCode: null, data: null, error: '$error');
+
   @override
-  Future<Response> getData({required String path}) async {
+  Future<HttpResult> getData({
+    required String path,
+    bool useAuth = true,
+  }) async {
     try {
-      _httpClient.options;
       final response = await _httpClient.get(path);
-      return response;
-    } catch (error) {
-      throw Exception(error);
+      return _handleResponse(response);
+    } on DioException catch (e) {
+      return _handleError(e);
+    } catch (e) {
+      return _handleGenericError(e);
     }
   }
 }
