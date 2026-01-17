@@ -1,6 +1,6 @@
 import 'package:bloc_abstraction_example/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:bloc_abstraction_example/src/common/routes/routes.dart';
-import 'package:bloc_abstraction_example/src/common/widgets/state_builder_widget.dart';
+import 'package:bloc_abstraction_example/src/common/state_management/state_management.dart';
 import 'package:bloc_abstraction_example/src/features/settings/view_models/setting_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/settings/models/setting_model.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StateBuilderWidget<SettingViewModel, SettingModel>(
-      controller: settingViewModel,
-      builder: (context, settingModel, widget) {
+      viewModel: settingViewModel,
+      builder: (context, settingModel) {
         return MaterialApp.router(
           title: 'Bloc Abstraction Example',
           debugShowCheckedModeBanner: false,

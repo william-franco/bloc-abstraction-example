@@ -1,11 +1,10 @@
+import 'package:bloc_abstraction_example/src/common/state_management/state_management.dart';
 import 'package:bloc_abstraction_example/src/common/states/state.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/refresh_button_widget.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/refresh_indicator_widget.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/skeleton_refresh_widget.dart';
-import 'package:bloc_abstraction_example/src/common/widgets/state_builder_widget.dart';
 import 'package:bloc_abstraction_example/src/features/settings/routes/setting_routes.dart';
 import 'package:bloc_abstraction_example/src/features/users/view_models/user_view_model.dart';
-import 'package:bloc_abstraction_example/src/features/users/models/user_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -62,9 +61,9 @@ class _UserViewState extends State<UserView> {
           onRefresh: () async {
             await _getAllUsers();
           },
-          child: StateBuilderWidget<UserViewModel, AppState<List<UserModel>>>(
-            controller: widget.userViewModel,
-            builder: (context, userState, widget) {
+          child: StateBuilderWidget<UserViewModel, UsersState>(
+            viewModel: widget.userViewModel,
+            builder: (context, userState) {
               return switch (userState) {
                 InitialState() => const Text('List is empty.'),
                 LoadingState() => ListView.builder(

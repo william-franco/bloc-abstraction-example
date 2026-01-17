@@ -1,4 +1,4 @@
-import 'package:bloc_abstraction_example/src/common/widgets/state_builder_widget.dart';
+import 'package:bloc_abstraction_example/src/common/state_management/state_management.dart';
 import 'package:bloc_abstraction_example/src/features/settings/view_models/setting_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/settings/models/setting_model.dart';
 import 'package:flutter/material.dart';
@@ -39,8 +39,8 @@ class SettingView extends StatelessWidget {
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text('Dark theme'),
               trailing: StateBuilderWidget<SettingViewModel, SettingModel>(
-                controller: settingViewModel,
-                builder: (context, settingModel, widget) {
+                viewModel: settingViewModel,
+                builder: (context, settingModel) {
                   return Switch(
                     value: settingModel.isDarkTheme,
                     onChanged: (bool isDarkTheme) {
