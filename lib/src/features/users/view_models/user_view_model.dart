@@ -21,7 +21,7 @@ class UserViewModelImpl extends _ViewModel implements UserViewModel {
 
   @override
   Future<void> getAllUsers() async {
-    emitState(LoadingState());
+    _emit(LoadingState());
     final result = await userRepository.findAllUsers();
 
     final state = result.fold<UsersState>(
@@ -29,11 +29,11 @@ class UserViewModelImpl extends _ViewModel implements UserViewModel {
       onError: (error) => ErrorState(message: '$error'),
     );
 
-    emitState(state);
-    _debug();
+    _emit(state);
   }
 
-  void _debug() {
+  void _emit(UsersState newState) {
+    emitState(newState);
     debugPrint('User state: $state');
   }
 }

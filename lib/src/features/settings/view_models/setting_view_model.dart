@@ -21,19 +21,18 @@ class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
   @override
   Future<void> getTheme() async {
     final model = await settingRepository.readTheme();
-    emitState(model);
-    _debug();
+    _emit(model);
   }
 
   @override
   Future<void> changeTheme({required bool isDarkTheme}) async {
     final model = state.copyWith(isDarkTheme: isDarkTheme);
     await settingRepository.updateTheme(isDarkTheme: isDarkTheme);
-    emitState(model);
-    _debug();
+    _emit(model);
   }
 
-  void _debug() {
-    debugPrint('Dark theme: ${state.isDarkTheme}');
+  void _emit(SettingModel newState) {
+    emitState(newState);
+    debugPrint('SettingViewModel: ${state.isDarkTheme}');
   }
 }
