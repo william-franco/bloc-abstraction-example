@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:bloc_abstraction_example/src/common/patterns/app_state_pattern.dart';
 import 'package:bloc_abstraction_example/src/common/patterns/result_pattern.dart';
+import 'package:bloc_abstraction_example/src/features/users/exceptions/user_exception.dart';
 import 'package:bloc_abstraction_example/src/features/users/models/user_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/repositories/user_repository.dart';
 import 'package:bloc_abstraction_example/src/features/users/view_models/user_view_model.dart';
@@ -14,9 +15,9 @@ void main() {
     late MockUserRepository mockUserRepository;
 
     // Dummy values required by mockito for sealed/generic return types
-    final dummySuccess = SuccessResult<List<UserModel>, Exception>(value: []);
-    final dummyError = ErrorResult<List<UserModel>, Exception>(
-      error: Exception('dummy'),
+    final dummySuccess = SuccessResult<List<UserModel>, UserException>(value: []);
+    final dummyError = ErrorResult<List<UserModel>, UserException>(
+      error: UserException('dummy'),
     );
 
     final tUsers = [
@@ -57,7 +58,10 @@ void main() {
 
     test('should start with InitialState', () {
       final viewModel = UserViewModelImpl(userRepository: mockUserRepository);
-      expect(viewModel.state, isA<InitialState<List<UserModel>>>());
+      expect(
+        viewModel.state,
+        isA<InitialState<List<UserModel>, UserException>>(),
+      );
       viewModel.close();
     });
 
@@ -77,8 +81,8 @@ void main() {
         build: () => UserViewModelImpl(userRepository: mockUserRepository),
         act: (vm) => vm.getAllUsers(),
         expect: () => [
-          isA<LoadingState<List<UserModel>>>(),
-          isA<SuccessState<List<UserModel>>>()
+          isA<LoadingState<List<UserModel>, UserException>>(),
+          isA<SuccessState<List<UserModel>, UserException>>()
               .having((s) => s.data, 'data', equals(tUsers))
               .having(
                 (s) => s.data.first.name,
@@ -94,16 +98,17 @@ void main() {
         'when repository returns ErrorResult',
         setUp: () {
           when(mockUserRepository.findAllUsers()).thenAnswer(
-            (_) async => ErrorResult(error: Exception('Device not connected.')),
+            (_) async =>
+                ErrorResult(error: UserException('Device not connected.')),
           );
         },
         build: () => UserViewModelImpl(userRepository: mockUserRepository),
         act: (vm) => vm.getAllUsers(),
         expect: () => [
-          isA<LoadingState<List<UserModel>>>(),
-          isA<ErrorState<List<UserModel>>>().having(
-            (s) => s.message,
-            'message',
+          isA<LoadingState<List<UserModel>, UserException>>(),
+          isA<ErrorState<List<UserModel>, UserException>>().having(
+            (s) => s.error.message,
+            'error message',
             contains('Device not connected.'),
           ),
         ],
@@ -120,8 +125,8 @@ void main() {
         build: () => UserViewModelImpl(userRepository: mockUserRepository),
         act: (vm) => vm.getAllUsers(),
         expect: () => [
-          isA<LoadingState<List<UserModel>>>(),
-          isA<SuccessState<List<UserModel>>>().having(
+          isA<LoadingState<List<UserModel>, UserException>>(),
+          isA<SuccessState<List<UserModel>, UserException>>().having(
             (s) => s.data,
             'data',
             isEmpty,
@@ -139,8 +144,8 @@ void main() {
         build: () => UserViewModelImpl(userRepository: mockUserRepository),
         act: (vm) => vm.getAllUsers(),
         expect: () => [
-          isA<LoadingState<List<UserModel>>>(),
-          isA<SuccessState<List<UserModel>>>(),
+          isA<LoadingState<List<UserModel>, UserException>>(),
+          isA<SuccessState<List<UserModel>, UserException>>(),
         ],
       );
 
@@ -154,11 +159,14 @@ void main() {
             return SuccessResult(value: tUsers);
           });
           await vm.getAllUsers();
-          expect(stateWhileLoading, isA<LoadingState<List<UserModel>>>());
+          expect(
+            stateWhileLoading,
+            isA<LoadingState<List<UserModel>, UserException>>(),
+          );
         },
         expect: () => [
-          isA<LoadingState<List<UserModel>>>(),
-          isA<SuccessState<List<UserModel>>>(),
+          isA<LoadingState<List<UserModel>, UserException>>(),
+          isA<SuccessState<List<UserModel>, UserException>>(),
         ],
       );
 
@@ -173,15 +181,15 @@ void main() {
         act: (vm) async {
           await vm.getAllUsers();
           when(mockUserRepository.findAllUsers()).thenAnswer(
-            (_) async => ErrorResult(error: Exception('Server error')),
+            (_) async => ErrorResult(error: UserException('Server error')),
           );
           await vm.getAllUsers();
         },
         expect: () => [
-          isA<LoadingState<List<UserModel>>>(),
-          isA<SuccessState<List<UserModel>>>(),
-          isA<LoadingState<List<UserModel>>>(),
-          isA<ErrorState<List<UserModel>>>(),
+          isA<LoadingState<List<UserModel>, UserException>>(),
+          isA<SuccessState<List<UserModel>, UserException>>(),
+          isA<LoadingState<List<UserModel>, UserException>>(),
+          isA<ErrorState<List<UserModel>, UserException>>(),
         ],
         verify: (vm) => verify(mockUserRepository.findAllUsers()).called(2),
       );

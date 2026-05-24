@@ -11,12 +11,14 @@ import 'package:bloc_abstraction_example/src/common/services/connection_service.
     as _i2;
 import 'package:bloc_abstraction_example/src/common/services/http_service.dart'
     as _i4;
+import 'package:bloc_abstraction_example/src/features/users/exceptions/user_exception.dart'
+    as _i8;
 import 'package:bloc_abstraction_example/src/features/users/models/user_model.dart'
     as _i7;
 import 'package:bloc_abstraction_example/src/features/users/repositories/user_repository.dart'
     as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i8;
+import 'package:mockito/src/dummies.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -87,16 +89,18 @@ class MockUserRepository extends _i1.Mock implements _i5.UserRepository {
   }
 
   @override
-  _i3.Future<_i6.Result<List<_i7.UserModel>, Exception>> findAllUsers() =>
+  _i3.Future<_i6.Result<List<_i7.UserModel>, _i8.UserException>>
+  findAllUsers() =>
       (super.noSuchMethod(
             Invocation.method(#findAllUsers, []),
             returnValue:
-                _i3.Future<_i6.Result<List<_i7.UserModel>, Exception>>.value(
-                  _i8.dummyValue<_i6.Result<List<_i7.UserModel>, Exception>>(
-                    this,
-                    Invocation.method(#findAllUsers, []),
-                  ),
+                _i3.Future<
+                  _i6.Result<List<_i7.UserModel>, _i8.UserException>
+                >.value(
+                  _i9.dummyValue<
+                    _i6.Result<List<_i7.UserModel>, _i8.UserException>
+                  >(this, Invocation.method(#findAllUsers, [])),
                 ),
           )
-          as _i3.Future<_i6.Result<List<_i7.UserModel>, Exception>>);
+          as _i3.Future<_i6.Result<List<_i7.UserModel>, _i8.UserException>>);
 }

@@ -1,12 +1,13 @@
 import 'package:bloc_abstraction_example/src/common/patterns/app_state_pattern.dart';
 import 'package:bloc_abstraction_example/src/common/state_management/state_management.dart';
+import 'package:bloc_abstraction_example/src/features/users/exceptions/user_exception.dart';
 import 'package:bloc_abstraction_example/src/features/users/models/user_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 
-typedef _ViewModel = StateManagement<UsersState>;
+typedef UsersState = AppState<List<UserModel>, UserException>;
 
-typedef UsersState = AppState<List<UserModel>>;
+typedef _ViewModel = StateManagement<UsersState>;
 
 abstract interface class UserViewModel extends _ViewModel {
   UserViewModel(super.initialState);
@@ -26,7 +27,7 @@ class UserViewModelImpl extends _ViewModel implements UserViewModel {
 
     final state = result.fold<UsersState>(
       onSuccess: (value) => SuccessState(data: value),
-      onError: (error) => ErrorState(message: '$error'),
+      onError: (error) => ErrorState(error: error),
     );
 
     _emit(state);
