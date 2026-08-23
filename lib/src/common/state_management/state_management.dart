@@ -6,7 +6,7 @@ abstract class StateManagement<T> extends Cubit<T> {
 
   @protected
   void emitState(T newState) {
-    if (identical(state, newState)) return;
+    if (state == newState) return;
     emit(newState);
     debugPrint('StateManagement<$T> -> $newState');
   }
