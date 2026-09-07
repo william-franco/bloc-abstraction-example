@@ -1,4 +1,4 @@
-import 'package:bloc_abstraction_example/src/common/patterns/app_state_pattern.dart';
+import 'package:bloc_abstraction_example/src/common/patterns/state_pattern.dart';
 import 'package:bloc_abstraction_example/src/common/state_management/state_management.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/refresh_button_widget.dart';
 import 'package:bloc_abstraction_example/src/common/widgets/refresh_indicator_widget.dart';

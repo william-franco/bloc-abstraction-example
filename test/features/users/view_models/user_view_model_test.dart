@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:bloc_abstraction_example/src/common/patterns/app_state_pattern.dart';
+import 'package:bloc_abstraction_example/src/common/patterns/state_pattern.dart';
 import 'package:bloc_abstraction_example/src/common/patterns/result_pattern.dart';
 import 'package:bloc_abstraction_example/src/features/users/exceptions/user_exception.dart';
 import 'package:bloc_abstraction_example/src/features/users/models/user_model.dart';
