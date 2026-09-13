@@ -1,12 +1,37 @@
 # Bloc Abstraction Example
 
-Example project demonstrating a Bloc abstraction layer.
+Reference app showing how to wrap Flutter Bloc behind a reusable abstraction layer.
+
+Features consume a stable API while concrete Bloc implementations stay swappable in one place.
+
+Includes users and settings modules with repositories, routing, and shared infrastructure.
+
+Useful when you want testable UI logic without tying widgets directly to a specific Bloc subtype.
+
+## Structure
+
+```mermaid
+flowchart TB
+  Routes --> UserRoute
+  Routes --> SettingRoute
+  subgraph usersFeature [users]
+    UserRoute --> UserViewModel
+    UserViewModel --> UserRepository
+    UserRepository --> HttpService
+  end
+  HttpService --> JsonPlaceholder[JSONPlaceholder API]
+  subgraph settingsFeature [settings]
+    SettingRoute --> SettingViewModel
+    SettingViewModel --> SettingRepository
+    SettingRepository --> SharedPreferences
+  end
+```
 
 ## Stack
 
 | Technology | Version |
 |------------|---------|
-| Dart SDK | ^3.13.2 |
+| Dart SDK | ^3.13.3 |
 | connectivity_plus | ^7.1.1 |
 | cupertino_icons | ^1.0.8 |
 | dio | ^5.9.2 |
