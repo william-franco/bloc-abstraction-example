@@ -1,8 +1,8 @@
 import 'package:bloc_abstraction_example/src/common/patterns/state_pattern.dart';
 import 'package:bloc_abstraction_example/src/common/state_management/state_management.dart';
-import 'package:bloc_abstraction_example/src/common/widgets/refresh_button_widget.dart';
-import 'package:bloc_abstraction_example/src/common/widgets/refresh_indicator_widget.dart';
-import 'package:bloc_abstraction_example/src/common/widgets/skeleton_refresh_widget.dart';
+import 'package:bloc_abstraction_example/src/common/design/widgets/refresh_button_widget.dart';
+import 'package:bloc_abstraction_example/src/common/design/widgets/refresh_indicator_widget.dart';
+import 'package:bloc_abstraction_example/src/common/design/widgets/skeleton_refresh_widget.dart';
 import 'package:bloc_abstraction_example/src/features/settings/routes/setting_routes.dart';
 import 'package:bloc_abstraction_example/src/features/users/view_models/user_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/routes/user_routes.dart';
