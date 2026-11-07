@@ -2,6 +2,7 @@ import 'package:bloc_abstraction_example/src/common/state_management/state_manag
 import 'package:bloc_abstraction_example/src/features/settings/view_models/setting_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/settings/models/setting_model.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingView extends StatelessWidget {
@@ -16,6 +17,19 @@ class SettingView extends StatelessWidget {
       applicationName: 'Bloc Abstraction Example',
       applicationVersion: 'Version 1.0.0',
       applicationLegalese: '\u{a9} 2025 William Franco',
+      children: <Widget>[
+        const SizedBox(height: 16),
+        TextButton.icon(
+          icon: const Icon(Icons.code),
+          label: const Text('GitHub'),
+          onPressed: () {
+            launchUrl(
+              Uri.parse('https://github.com/william-franco'),
+              mode: LaunchMode.externalApplication,
+            );
+          },
+        ),
+      ],
     );
   }
 
