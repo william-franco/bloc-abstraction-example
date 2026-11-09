@@ -6,10 +6,7 @@ typedef OnPressedCallback = void Function();
 class RefreshButtonWidget extends StatelessWidget {
   final OnPressedCallback onPressed;
 
-  const RefreshButtonWidget({
-    super.key,
-    required this.onPressed,
-  });
+  const RefreshButtonWidget({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

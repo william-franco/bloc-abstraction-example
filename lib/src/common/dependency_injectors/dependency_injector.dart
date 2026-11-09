@@ -1,6 +1,7 @@
 import 'package:bloc_abstraction_example/src/common/services/connection_service.dart';
 import 'package:bloc_abstraction_example/src/common/services/http_service.dart';
 import 'package:bloc_abstraction_example/src/common/services/storage_service.dart';
+import 'package:bloc_abstraction_example/src/common/services/url_launcher_service.dart';
 import 'package:bloc_abstraction_example/src/features/settings/view_models/setting_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/settings/repositories/setting_repository.dart';
 import 'package:bloc_abstraction_example/src/features/users/view_models/user_view_model.dart';
@@ -10,6 +11,9 @@ import 'package:get_it/get_it.dart';
 final locator = GetIt.instance;
 
 void dependencyInjector() {
+  locator.registerLazySingleton<UrlLauncherService>(
+    () => UrlLauncherServiceImpl(),
+  );
   _startConnectionService();
   _startHttpService();
   _startStorageService();
@@ -45,7 +49,10 @@ void _startFeatureUser() {
 
 void _startFeatureSetting() {
   locator.registerCachedFactory<SettingRepository>(
-    () => SettingRepositoryImpl(storageService: locator<StorageService>()),
+    () => SettingRepositoryImpl(
+      storageService: locator<StorageService>(),
+      urlLauncherService: locator<UrlLauncherService>(),
+    ),
   );
   locator.registerLazySingleton<SettingViewModel>(
     () => SettingViewModelImpl(settingRepository: locator<SettingRepository>()),

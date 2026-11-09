@@ -5,10 +5,7 @@ import 'package:go_router/go_router.dart';
 class UserDetailView extends StatelessWidget {
   final UserModel userModel;
 
-  const UserDetailView({
-    super.key,
-    required this.userModel,
-  });
+  const UserDetailView({super.key, required this.userModel});
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +38,13 @@ class UserDetailView extends StatelessWidget {
                     userModel.name ?? '',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  const SizedBox(
-                    height: 4.0,
-                  ),
+                  const SizedBox(height: 4.0),
                   Text(
                     '@${userModel.username}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
+                    style: Theme.of(context).textTheme.titleMedium
                         ?.copyWith(color: Colors.grey),
                   ),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
+                  const SizedBox(height: 16.0),
                   Text(
                     userModel.email ?? '',
                     style: Theme.of(context).textTheme.bodyMedium,
@@ -62,9 +53,7 @@ class UserDetailView extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          const SizedBox(height: 16.0),
 
           // Seção de endereço
           Card(
@@ -92,9 +81,7 @@ class UserDetailView extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          const SizedBox(height: 16.0),
 
           // Seção de contato
           Card(
@@ -111,18 +98,14 @@ class UserDetailView extends StatelessWidget {
                     'Contact',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
+                  const SizedBox(height: 8.0),
                   Text('Phone: ${userModel.phone}'),
                   Text('Website: ${userModel.website}'),
                 ],
               ),
             ),
           ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          const SizedBox(height: 16.0),
 
           // Seção de empresa
           Card(

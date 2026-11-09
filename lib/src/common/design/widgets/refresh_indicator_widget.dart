@@ -17,9 +17,6 @@ class RefreshIndicatorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return context.isWeb
         ? child
-        : RefreshIndicator(
-            onRefresh: onRefresh,
-            child: child,
-          );
+        : RefreshIndicator(onRefresh: onRefresh, child: child);
   }
 }

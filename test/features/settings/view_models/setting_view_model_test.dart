@@ -40,9 +40,8 @@ void main() {
         'should emit SettingModel with isDarkTheme true '
         'when repository returns isDarkTheme true',
         setUp: () {
-          when(
-            mockSettingRepository.readTheme(),
-          ).thenAnswer((_) async => SettingModel(isDarkTheme: true));
+          when(mockSettingRepository.readTheme())
+              .thenAnswer((_) async => SettingModel(isDarkTheme: true));
         },
         build: () =>
             SettingViewModelImpl(settingRepository: mockSettingRepository),
@@ -61,9 +60,8 @@ void main() {
         'should emit SettingModel with isDarkTheme false '
         'when repository returns isDarkTheme false',
         setUp: () {
-          when(
-            mockSettingRepository.readTheme(),
-          ).thenAnswer((_) async => SettingModel(isDarkTheme: false));
+          when(mockSettingRepository.readTheme())
+              .thenAnswer((_) async => SettingModel(isDarkTheme: false));
         },
         build: () =>
             SettingViewModelImpl(settingRepository: mockSettingRepository),
@@ -80,9 +78,8 @@ void main() {
       blocTest<SettingViewModelImpl, SettingModel>(
         'should emit exactly one state when getTheme completes',
         setUp: () {
-          when(
-            mockSettingRepository.readTheme(),
-          ).thenAnswer((_) async => SettingModel(isDarkTheme: true));
+          when(mockSettingRepository.readTheme())
+              .thenAnswer((_) async => SettingModel(isDarkTheme: true));
         },
         build: () =>
             SettingViewModelImpl(settingRepository: mockSettingRepository),
@@ -93,9 +90,8 @@ void main() {
       blocTest<SettingViewModelImpl, SettingModel>(
         'should propagate exception thrown by repository',
         setUp: () {
-          when(
-            mockSettingRepository.readTheme(),
-          ).thenThrow(Exception('SettingRepository: Storage failure'));
+          when(mockSettingRepository.readTheme())
+              .thenThrow(Exception('SettingRepository: Storage failure'));
         },
         build: () =>
             SettingViewModelImpl(settingRepository: mockSettingRepository),
@@ -163,9 +159,8 @@ void main() {
         'should preserve other SettingModel fields when toggling theme '
         'via copyWith',
         setUp: () {
-          when(
-            mockSettingRepository.readTheme(),
-          ).thenAnswer((_) async => SettingModel(isDarkTheme: false));
+          when(mockSettingRepository.readTheme())
+              .thenAnswer((_) async => SettingModel(isDarkTheme: false));
           when(
             mockSettingRepository.updateTheme(
               isDarkTheme: anyNamed('isDarkTheme'),

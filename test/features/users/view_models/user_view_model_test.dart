@@ -15,7 +15,9 @@ void main() {
     late MockUserRepository mockUserRepository;
 
     // Dummy values required by mockito for sealed/generic return types
-    final dummySuccess = SuccessResult<List<UserModel>, UserException>(value: []);
+    final dummySuccess = SuccessResult<List<UserModel>, UserException>(
+      value: [],
+    );
     final dummyError = ErrorResult<List<UserModel>, UserException>(
       error: UserException('dummy'),
     );
@@ -74,9 +76,8 @@ void main() {
         'should emit [LoadingState, SuccessState] '
         'when repository returns SuccessResult',
         setUp: () {
-          when(
-            mockUserRepository.findAllUsers(),
-          ).thenAnswer((_) async => SuccessResult(value: tUsers));
+          when(mockUserRepository.findAllUsers())
+              .thenAnswer((_) async => SuccessResult(value: tUsers));
         },
         build: () => UserViewModelImpl(userRepository: mockUserRepository),
         act: (vm) => vm.getAllUsers(),
@@ -118,9 +119,8 @@ void main() {
         'should emit SuccessState with empty list '
         'when repository returns an empty SuccessResult',
         setUp: () {
-          when(
-            mockUserRepository.findAllUsers(),
-          ).thenAnswer((_) async => SuccessResult(value: <UserModel>[]));
+          when(mockUserRepository.findAllUsers())
+              .thenAnswer((_) async => SuccessResult(value: <UserModel>[]));
         },
         build: () => UserViewModelImpl(userRepository: mockUserRepository),
         act: (vm) => vm.getAllUsers(),
@@ -137,9 +137,8 @@ void main() {
       blocTest<UserViewModelImpl, UsersState>(
         'should emit exactly two states (LoadingState then final state)',
         setUp: () {
-          when(
-            mockUserRepository.findAllUsers(),
-          ).thenAnswer((_) async => SuccessResult(value: tUsers));
+          when(mockUserRepository.findAllUsers())
+              .thenAnswer((_) async => SuccessResult(value: tUsers));
         },
         build: () => UserViewModelImpl(userRepository: mockUserRepository),
         act: (vm) => vm.getAllUsers(),
@@ -173,9 +172,8 @@ void main() {
       blocTest<UserViewModelImpl, UsersState>(
         'should reset to LoadingState on each new getAllUsers call',
         setUp: () {
-          when(
-            mockUserRepository.findAllUsers(),
-          ).thenAnswer((_) async => SuccessResult(value: tUsers));
+          when(mockUserRepository.findAllUsers())
+              .thenAnswer((_) async => SuccessResult(value: tUsers));
         },
         build: () => UserViewModelImpl(userRepository: mockUserRepository),
         act: (vm) async {

@@ -10,6 +10,7 @@ abstract interface class SettingViewModel extends _ViewModel {
 
   Future<void> getTheme();
   Future<void> changeTheme({required bool isDarkTheme});
+  Future<void> openUrl({required Uri url});
 }
 
 class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
@@ -17,6 +18,10 @@ class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
 
   SettingViewModelImpl({required this.settingRepository})
     : super(SettingModel());
+
+  @override
+  Future<void> openUrl({required Uri url}) =>
+      settingRepository.openUrl(url: url);
 
   @override
   Future<void> getTheme() async {
