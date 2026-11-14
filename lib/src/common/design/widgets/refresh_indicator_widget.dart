@@ -1,5 +1,5 @@
 import 'package:bloc_abstraction_example/src/common/extensions/platform_extension.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 typedef OnRefreshCallback = Future<void> Function();
 

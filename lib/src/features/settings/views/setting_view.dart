@@ -1,7 +1,7 @@
 import 'package:bloc_abstraction_example/src/common/state_management/state_management.dart';
 import 'package:bloc_abstraction_example/src/features/settings/view_models/setting_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/settings/models/setting_model.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingView extends StatelessWidget {
@@ -15,7 +15,7 @@ class SettingView extends StatelessWidget {
       applicationIcon: const FlutterLogo(),
       applicationName: 'Bloc Abstraction Example',
       applicationVersion: 'Version 1.0.0',
-      applicationLegalese: '\u{a9} 2025 William Franco',
+      applicationLegalese: '\u{a9} 2026 William Franco',
       children: <Widget>[
         const SizedBox(height: 16),
         TextButton.icon(

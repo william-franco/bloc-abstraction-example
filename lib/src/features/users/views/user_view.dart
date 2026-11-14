@@ -6,7 +6,7 @@ import 'package:bloc_abstraction_example/src/common/design/widgets/skeleton_refr
 import 'package:bloc_abstraction_example/src/features/settings/routes/setting_routes.dart';
 import 'package:bloc_abstraction_example/src/features/users/view_models/user_view_model.dart';
 import 'package:bloc_abstraction_example/src/features/users/routes/user_routes.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 class UserView extends StatefulWidget {
